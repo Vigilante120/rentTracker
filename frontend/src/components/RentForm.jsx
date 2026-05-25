@@ -5,7 +5,7 @@ export default function RentForm({ onSubmit }) {
     name: "",
     number: "",
     product_detail: "",
-    rent_duration_minutes: "",
+    rent_duration_days: "",
   });
 
   const handleChange = (event) => {
@@ -17,9 +17,9 @@ export default function RentForm({ onSubmit }) {
     event.preventDefault();
     onSubmit({
       ...form,
-      rent_duration_minutes: Number(form.rent_duration_minutes),
+      rent_duration_days: Number(form.rent_duration_days),
     });
-    setForm({ name: "", number: "", product_detail: "", rent_duration_minutes: "" });
+    setForm({ name: "", number: "", product_detail: "", rent_duration_days: "" });
   };
 
   return (
@@ -53,9 +53,9 @@ export default function RentForm({ onSubmit }) {
       />
       <input
         className="w-full rounded-xl border border-slate-200 px-4 py-2"
-        name="rent_duration_minutes"
-        placeholder="Rent time (minutes)"
-        value={form.rent_duration_minutes}
+        name="rent_duration_days"
+        placeholder="Rent time (days)"
+        value={form.rent_duration_days}
         onChange={handleChange}
         type="number"
         min="1"

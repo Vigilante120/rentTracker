@@ -34,7 +34,7 @@ class RentItemSerializer(serializers.ModelSerializer):
             "name",
             "number",
             "product_detail",
-            "rent_duration_minutes",
+            "rent_duration_days",
             "end_date",
             "is_active",
             "created_at",

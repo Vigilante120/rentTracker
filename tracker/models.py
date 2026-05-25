@@ -47,14 +47,14 @@ class RentItem(models.Model):
     name = models.CharField(max_length=120)
     number = models.CharField(max_length=40)
     product_detail = models.TextField()
-    rent_duration_minutes = models.PositiveIntegerField()
+    rent_duration_days = models.PositiveIntegerField()
     end_date = models.DateTimeField()
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if not self.end_date:
-            self.end_date = timezone.now() + timedelta(minutes=self.rent_duration_minutes)
+            self.end_date = timezone.now() + timedelta(days=self.rent_duration_days)
         super().save(*args, **kwargs)
 
     def __str__(self):

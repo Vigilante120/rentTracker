@@ -8,12 +8,19 @@ import api from "../services/api.js";
 import { clearToken } from "../services/auth.js";
 
 const formatCountdown = (milliseconds) => {
-  if (milliseconds <= 0) return "00:00:00";
+  if (milliseconds <= 0) return "00:00";
   const totalSeconds = Math.floor(milliseconds / 1000);
-  const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
-  const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
-  const seconds = String(totalSeconds % 60).padStart(2, "0");
-  return `${hours}:${minutes}:${seconds}`;
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  const totalHours = Math.floor(totalMinutes / 60);
+  const days = Math.floor(totalHours / 24);
+
+  if (days >= 1) {
+    return `${days}d`;
+  }
+
+  const hours = String(totalHours).padStart(2, "0");
+  const minutes = String(totalMinutes % 60).padStart(2, "0");
+  return `${hours}:${minutes}`;
 };
 
 export default function Dashboard() {

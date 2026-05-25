@@ -1,13 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { googleLogin, login } from "../services/auth.js";
+import { clearToken, googleLogin, login } from "../services/auth.js";
 
 export default function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
-  const [googleToken, setGoogleToken] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    clearToken();
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    if (!clientId) {
+      setError("Google client ID is missing. Set VITE_GOOGLE_CLIENT_ID in frontend/.env.");
+      return;
+    }
+
+    if (!window.google?.accounts?.id) {
+      const timeout = setTimeout(() => {
+        setError("Google Sign-In failed to load. Refresh and try again.");
+      }, 1500);
+      return () => clearTimeout(timeout);
+    }
+
+    window.google.accounts.id.initialize({
+      client_id: clientId,
+      callback: async (response) => {
+        try {
+          await googleLogin({ id_token: response.credential });
+          navigate("/dashboard");
+        } catch (err) {
+          setError(err.response?.data?.detail || "Google login failed.");
+        }
+      },
+    });
+
+    window.google.accounts.id.renderButton(document.getElementById("googleSignIn"), {
+      theme: "outline",
+      size: "large",
+      width: 320,
+    });
+  }, [navigate]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -25,19 +58,6 @@ export default function Login() {
     }
   };
 
-  const handleGoogle = async () => {
-    setError("");
-    if (!googleToken) {
-      setError("Paste a Google ID token to continue.");
-      return;
-    }
-    try {
-      await googleLogin({ id_token: googleToken });
-      navigate("/dashboard");
-    } catch (err) {
-      setError(err.response?.data?.detail || "Google login failed.");
-    }
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
@@ -72,19 +92,8 @@ export default function Login() {
         </form>
 
         <div className="mt-6">
-          <label className="text-xs uppercase tracking-widest text-slate-400">Google ID token</label>
-          <input
-            className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-2"
-            placeholder="Paste Google ID token"
-            value={googleToken}
-            onChange={(event) => setGoogleToken(event.target.value)}
-          />
-          <button
-            onClick={handleGoogle}
-            className="mt-3 w-full rounded-xl border border-ink px-4 py-2 text-ink hover:border-teal hover:text-teal transition-colors"
-          >
-            Login with Google
-          </button>
+          <p className="text-xs uppercase tracking-widest text-slate-400">Google Sign-In</p>
+          <div id="googleSignIn" className="mt-3 flex justify-center" />
         </div>
 
         <p className="mt-6 text-center text-sm text-slate-500">
