@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     GoogleLoginView,
     LoginView,
+    OwedMoneyHistoryViewSet,
     OwedMoneyViewSet,
     RentItemViewSet,
     SignupView,
@@ -13,6 +14,7 @@ from .views import (
 router = DefaultRouter()
 router.register("rent-items", RentItemViewSet, basename="rent-items")
 router.register("owed-money", OwedMoneyViewSet, basename="owed-money")
+router.register("owed-money-history", OwedMoneyHistoryViewSet, basename="owed-money-history")
 
 urlpatterns = [
     path("auth/signup/", SignupView.as_view(), name="signup"),

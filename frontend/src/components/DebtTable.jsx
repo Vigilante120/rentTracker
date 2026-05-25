@@ -22,7 +22,7 @@ export default function DebtTable({ debts, onClear }) {
               <tr key={debt.id} className="border-t border-slate-200">
                 <td className="px-4 py-3">{debt.name}</td>
                 <td className="px-4 py-3">{debt.number}</td>
-                <td className="px-4 py-3">${debt.amount}</td>
+                <td className="px-4 py-3">₹{debt.amount}</td>
                 <td className="px-4 py-3">
                   <button
                     onClick={() => onClear(debt.id)}

@@ -27,6 +27,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [rentItems, setRentItems] = useState([]);
   const [debts, setDebts] = useState([]);
+  const [debtHistory, setDebtHistory] = useState([]);
   const [tick, setTick] = useState(0);
   const [error, setError] = useState("");
 
@@ -42,12 +43,14 @@ export default function Dashboard() {
 
   const loadData = async () => {
     try {
-      const [rentResponse, debtResponse] = await Promise.all([
+      const [rentResponse, debtResponse, historyResponse] = await Promise.all([
         api.get("/rent-items/"),
         api.get("/owed-money/"),
+        api.get("/owed-money-history/"),
       ]);
       setRentItems(rentResponse.data);
       setDebts(debtResponse.data);
+      setDebtHistory(historyResponse.data);
     } catch (err) {
       setError("Failed to load dashboard data.");
     }
@@ -81,11 +84,19 @@ export default function Dashboard() {
     setError("");
     try {
       await api.patch(`/owed-money/${id}/`, { is_cleared: true });
+      await loadData();
       setDebts((prev) => prev.filter((debt) => debt.id !== id));
     } catch (err) {
       setError("Could not clear debt.");
     }
   };
+
+  const formatDate = (value) =>
+    new Date(value).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
 
   const handleLogout = () => {
     clearToken();
@@ -181,6 +192,33 @@ export default function Dashboard() {
         </div>
         <div className="mt-4">
           <DebtTable debts={debts} onClear={handleClearDebt} />
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold">Cleared History</h3>
+          <span className="text-sm text-slate-500">{debtHistory.length} cleared</span>
+        </div>
+        <div className="mt-4 space-y-3">
+          {debtHistory.length === 0 ? (
+            <p className="text-sm text-slate-500">No cleared debts yet.</p>
+          ) : (
+            debtHistory.map((item) => (
+              <div key={item.id} className="rounded-2xl border border-slate-200 bg-white/70 p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-ink">{item.name}</p>
+                    <p className="text-xs text-slate-500">{item.number}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-semibold text-ink">₹{item.amount}</p>
+                    <p className="text-xs text-slate-500">{formatDate(item.cleared_at)}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </section>
     </div>

@@ -13,11 +13,12 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import EmailOTP, OwedMoney, RentItem
+from .models import EmailOTP, OwedMoney, OwedMoneyHistory, RentItem
 from .serializers import (
     GoogleLoginSerializer,
     LoginSerializer,
     OwedMoneySerializer,
+    OwedMoneyHistorySerializer,
     RentItemSerializer,
     SignupSerializer,
     VerifyOTPSerializer,
@@ -183,3 +184,23 @@ class OwedMoneyViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
+        was_cleared = serializer.instance.is_cleared
+        instance = serializer.save()
+        if not was_cleared and instance.is_cleared:
+            OwedMoneyHistory.objects.create(
+                user=self.request.user,
+                owed_money=instance,
+                name=instance.name,
+                number=instance.number,
+                amount=instance.amount,
+            )
+
+
+class OwedMoneyHistoryViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = OwedMoneyHistorySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return OwedMoneyHistory.objects.filter(user=self.request.user).order_by("-cleared_at")

@@ -73,6 +73,18 @@ class OwedMoney(models.Model):
         return f"{self.name} - {self.amount}"
 
 
+class OwedMoneyHistory(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="owed_money_history")
+    owed_money = models.ForeignKey(OwedMoney, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(max_length=120)
+    number = models.CharField(max_length=40)
+    amount = models.DecimalField(max_digits=12, decimal_places=2)
+    cleared_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.amount}"
+
+
 class EmailOTP(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="email_otps")
     code = models.CharField(max_length=6)

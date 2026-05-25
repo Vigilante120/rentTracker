@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from .models import RentItem, OwedMoney
+from .models import RentItem, OwedMoney, OwedMoneyHistory
 
 User = get_user_model()
 
@@ -47,3 +47,10 @@ class OwedMoneySerializer(serializers.ModelSerializer):
         model = OwedMoney
         fields = ["id", "name", "number", "amount", "is_cleared", "created_at"]
         read_only_fields = ["id", "created_at"]
+
+
+class OwedMoneyHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OwedMoneyHistory
+        fields = ["id", "name", "number", "amount", "cleared_at"]
+        read_only_fields = ["id", "cleared_at"]
