@@ -182,3 +182,15 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend', # Default Django auth
     'allauth.account.auth_backends.AuthenticationBackend', # Allauth backend
 ]
+
+# CORS_ALLOW_ALL_ORIGINS = False
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000", # Standard local React/Next.js port
+#     "http://127.0.0.1:3000",
+#     "https://rent-tracker-xi.vercel.app",
+# ]
+
+# CSRF_TRUSTED_ORIGINS = [
+#     "https://rent-tracker-xi.vercel.app",
+# ]
