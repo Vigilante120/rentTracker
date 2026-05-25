@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  background: radial-gradient(circle at top left, #fef6eb 0%, #f6f3ee 45%, #eef6f7 100%);
+  color: #0f172a;
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.hero-grid {
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255, 107, 90, 0.2), transparent 40%),
+    radial-gradient(circle at 85% 10%, rgba(14, 124, 123, 0.2), transparent 40%),
+    radial-gradient(circle at 70% 80%, rgba(201, 242, 124, 0.35), transparent 45%);
+}
