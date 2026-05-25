@@ -4,32 +4,36 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Space Grotesk", "system-ui", "sans-serif"],
-        display: ["Playfair Display", "serif"],
+        sans: ["Sora", "system-ui", "sans-serif"],
+        display: ["Fraunces", "serif"],
       },
       colors: {
-        ink: "#0F172A",
-        sand: "#F6F3EE",
-        coral: "#FF6B5A",
-        teal: "#0E7C7B",
-        lime: "#C9F27C",
+        ink: "#14121A",
+        sand: "#FFF7ED",
+        coral: "#FF6E7B",
+        teal: "#3A86FF",
+        lime: "#C7F9CC",
+        lilac: "#CDB4FF",
+        sky: "#BDE0FE",
+        blush: "#FFE5EC",
       },
       boxShadow: {
-        card: "0 20px 45px -30px rgba(15, 23, 42, 0.45)",
+        card: "0 20px 45px -30px rgba(20, 18, 26, 0.35)",
+        glow: "0 16px 40px -20px rgba(58, 134, 255, 0.45)",
       },
       keyframes: {
         floatIn: {
           "0%": { opacity: 0, transform: "translateY(24px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
         },
-        glow: {
-          "0%": { boxShadow: "0 0 0 rgba(255, 107, 90, 0.2)" },
-          "100%": { boxShadow: "0 0 40px rgba(255, 107, 90, 0.3)" },
+        shimmer: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "100% 50%" },
         },
       },
       animation: {
         floatIn: "floatIn 0.7s ease-out both",
-        glow: "glow 1.8s ease-in-out infinite alternate",
+        shimmer: "shimmer 6s ease-in-out infinite alternate",
       },
     },
   },

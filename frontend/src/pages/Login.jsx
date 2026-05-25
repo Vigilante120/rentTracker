@@ -60,8 +60,20 @@ export default function Login() {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6">
-      <div className="glass w-full max-w-md rounded-3xl p-8 shadow-card">
+    <div className="min-h-screen px-6">
+      <header className="flex items-center justify-between py-6">
+        <Link to="/" className="text-lg font-semibold text-ink">
+          RentTrack
+        </Link>
+        <Link
+          to="/"
+          className="rounded-full border border-ink/30 px-4 py-2 text-sm text-ink hover:border-teal hover:text-teal transition-colors"
+        >
+          Home
+        </Link>
+      </header>
+      <div className="flex items-center justify-center">
+      <div className="glass w-full max-w-md rounded-3xl p-8 shadow-card neo-border">
         <h1 className="font-display text-3xl">Welcome back</h1>
         <p className="mt-2 text-sm text-slate-500">Pick up right where your tracking left off.</p>
 
@@ -69,7 +81,7 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <input
-            className="w-full rounded-xl border border-slate-200 px-4 py-2"
+            className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky/70"
             name="email"
             type="email"
             placeholder="Email"
@@ -78,7 +90,7 @@ export default function Login() {
             required
           />
           <input
-            className="w-full rounded-xl border border-slate-200 px-4 py-2"
+            className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lilac/70"
             name="password"
             type="password"
             placeholder="Password"
@@ -86,7 +98,7 @@ export default function Login() {
             onChange={handleChange}
             required
           />
-          <button className="w-full rounded-xl bg-ink px-4 py-2 text-white hover:bg-teal transition-colors">
+          <button className="w-full rounded-xl bg-teal px-4 py-2 text-white shadow-glow hover:opacity-90 transition">
             Login
           </button>
         </form>
@@ -99,6 +111,7 @@ export default function Login() {
         <p className="mt-6 text-center text-sm text-slate-500">
           New here? <Link to="/signup" className="text-teal">Create an account</Link>
         </p>
+      </div>
       </div>
     </div>
   );

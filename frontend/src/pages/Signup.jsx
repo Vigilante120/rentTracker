@@ -45,8 +45,20 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6">
-      <div className="glass w-full max-w-md rounded-3xl p-8 shadow-card">
+    <div className="min-h-screen px-6">
+      <header className="flex items-center justify-between py-6">
+        <Link to="/" className="text-lg font-semibold text-ink">
+          RentTrack
+        </Link>
+        <Link
+          to="/"
+          className="rounded-full border border-ink/30 px-4 py-2 text-sm text-ink hover:border-teal hover:text-teal transition-colors"
+        >
+          Home
+        </Link>
+      </header>
+      <div className="flex items-center justify-center">
+      <div className="glass w-full max-w-md rounded-3xl p-8 shadow-card neo-border">
         <h1 className="font-display text-3xl">Create your account</h1>
         <p className="mt-2 text-sm text-slate-500">
           {step === "signup" ? "Start tracking in less than a minute." : "Enter the code sent to your email."}
@@ -57,14 +69,14 @@ export default function Signup() {
         {step === "signup" ? (
           <form onSubmit={handleSignup} className="mt-6 space-y-4">
             <input
-              className="w-full rounded-xl border border-slate-200 px-4 py-2"
+              className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lilac/70"
               name="full_name"
               placeholder="Full name"
               value={form.full_name}
               onChange={handleChange}
             />
             <input
-              className="w-full rounded-xl border border-slate-200 px-4 py-2"
+              className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky/70"
               name="email"
               type="email"
               placeholder="Email"
@@ -74,7 +86,7 @@ export default function Signup() {
             />
             <div className="relative">
               <input
-                className="w-full rounded-xl border border-slate-200 px-4 py-2 pr-16"
+                className="w-full rounded-xl border border-slate-200 px-4 py-2 pr-16 focus:outline-none focus:ring-2 focus:ring-blush"
                 name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
@@ -93,7 +105,7 @@ export default function Signup() {
             </div>
             <div className="relative">
               <input
-                className="w-full rounded-xl border border-slate-200 px-4 py-2 pr-16"
+                className="w-full rounded-xl border border-slate-200 px-4 py-2 pr-16 focus:outline-none focus:ring-2 focus:ring-blush"
                 name="confirm_password"
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm password"
@@ -110,20 +122,20 @@ export default function Signup() {
                 {showConfirmPassword ? "Hide" : "Show"}
               </button>
             </div>
-            <button className="w-full rounded-xl bg-ink px-4 py-2 text-white hover:bg-teal transition-colors">
+            <button className="w-full rounded-xl bg-teal px-4 py-2 text-white shadow-glow hover:opacity-90 transition">
               Send Verification Code
             </button>
           </form>
         ) : (
           <form onSubmit={handleVerify} className="mt-6 space-y-4">
             <input
-              className="w-full rounded-xl border border-slate-200 px-4 py-2"
+              className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lilac/70"
               placeholder="Verification code"
               value={code}
               onChange={(event) => setCode(event.target.value)}
               required
             />
-            <button className="w-full rounded-xl bg-ink px-4 py-2 text-white hover:bg-teal transition-colors">
+            <button className="w-full rounded-xl bg-teal px-4 py-2 text-white shadow-glow hover:opacity-90 transition">
               Verify & Continue
             </button>
           </form>
@@ -132,6 +144,7 @@ export default function Signup() {
         <p className="mt-6 text-center text-sm text-slate-500">
           Already have an account? <Link to="/login" className="text-teal">Sign in</Link>
         </p>
+      </div>
       </div>
     </div>
   );

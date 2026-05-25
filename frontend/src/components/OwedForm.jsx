@@ -18,7 +18,7 @@ export default function OwedForm({ onSubmit }) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-3 md:grid-cols-2">
         <input
-          className="w-full rounded-xl border border-slate-200 px-4 py-2"
+          className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lilac/70"
           name="name"
           placeholder="Name"
           value={form.name}
@@ -26,7 +26,7 @@ export default function OwedForm({ onSubmit }) {
           required
         />
         <input
-          className="w-full rounded-xl border border-slate-200 px-4 py-2"
+          className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky/70"
           name="number"
           placeholder="Number"
           value={form.number}
@@ -35,7 +35,7 @@ export default function OwedForm({ onSubmit }) {
         />
       </div>
       <input
-        className="w-full rounded-xl border border-slate-200 px-4 py-2"
+        className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blush"
         name="amount"
         placeholder="Amount"
         value={form.amount}
@@ -45,7 +45,7 @@ export default function OwedForm({ onSubmit }) {
         step="0.01"
         required
       />
-      <button className="w-full rounded-xl bg-ink px-4 py-2 text-white hover:bg-teal transition-colors">
+      <button className="w-full rounded-xl bg-teal px-4 py-2 text-white shadow-glow hover:opacity-90 transition">
         Add Money Owed
       </button>
     </form>

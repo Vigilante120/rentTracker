@@ -107,12 +107,12 @@ export default function Dashboard() {
     <div className="min-h-screen px-6 py-10 md:px-16">
       <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-sm uppercase tracking-[0.3em] text-teal">Dashboard</p>
+          <span className="chip">Dashboard</span>
           <h1 className="font-display text-3xl">Your rent & debt control center</h1>
         </div>
         <button
           onClick={handleLogout}
-          className="rounded-full border border-ink px-4 py-2 text-ink hover:border-coral hover:text-coral transition-colors"
+          className="rounded-full border border-ink/30 px-4 py-2 text-ink hover:border-coral hover:text-coral transition-colors"
         >
           Log out
         </button>
@@ -121,14 +121,14 @@ export default function Dashboard() {
       {error && <p className="mt-6 rounded-xl bg-coral/10 px-4 py-2 text-sm text-coral">{error}</p>}
 
       <section className="mt-8 grid gap-6 lg:grid-cols-2">
-        <div className="glass rounded-3xl p-6 shadow-card">
+        <div className="glass rounded-3xl p-6 shadow-card neo-border">
           <h2 className="text-lg font-semibold">Add Rent</h2>
           <p className="text-sm text-slate-500">Track a rented item and start the countdown.</p>
           <div className="mt-4">
             <RentForm onSubmit={handleAddRent} />
           </div>
         </div>
-        <div className="glass rounded-3xl p-6 shadow-card">
+        <div className="glass rounded-3xl p-6 shadow-card neo-border">
           <h2 className="text-lg font-semibold">Add Money Owed</h2>
           <p className="text-sm text-slate-500">Log a debt and stay on top of collections.</p>
           <div className="mt-4">
@@ -138,7 +138,7 @@ export default function Dashboard() {
       </section>
 
       <section className="mt-10 grid gap-6 lg:grid-cols-3">
-        <div className="glass rounded-3xl p-6 shadow-card lg:col-span-2">
+        <div className="glass rounded-3xl p-6 shadow-card lg:col-span-2 neo-border">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold">Active Rent Items</h3>
             <span className="text-sm text-slate-500">{rentItems.length} active</span>
@@ -156,7 +156,7 @@ export default function Dashboard() {
                         <p className="font-semibold text-ink">{item.name}</p>
                         <p className="text-xs text-slate-500">{item.product_detail}</p>
                       </div>
-                      <span className="rounded-full bg-sand px-3 py-1 text-xs text-ink">
+                      <span className="rounded-full bg-lilac/30 px-3 py-1 text-xs text-ink">
                         {formatCountdown(remaining)}
                       </span>
                     </div>
@@ -167,7 +167,7 @@ export default function Dashboard() {
             )}
           </div>
         </div>
-        <div className="glass rounded-3xl p-6 shadow-card">
+        <div className="glass rounded-3xl p-6 shadow-card neo-border">
           <h3 className="text-lg font-semibold">Upcoming Ending Rent</h3>
           <p className="text-sm text-slate-500">Alerts when rent time hits zero.</p>
           <div className="mt-4 space-y-3">

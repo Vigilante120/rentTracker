@@ -26,7 +26,7 @@ export default function RentForm({ onSubmit }) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-3 md:grid-cols-2">
         <input
-          className="w-full rounded-xl border border-slate-200 px-4 py-2"
+          className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lilac/70"
           name="name"
           placeholder="Name"
           value={form.name}
@@ -34,7 +34,7 @@ export default function RentForm({ onSubmit }) {
           required
         />
         <input
-          className="w-full rounded-xl border border-slate-200 px-4 py-2"
+          className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky/70"
           name="number"
           placeholder="Number"
           value={form.number}
@@ -43,7 +43,7 @@ export default function RentForm({ onSubmit }) {
         />
       </div>
       <textarea
-        className="w-full rounded-xl border border-slate-200 px-4 py-2"
+        className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blush"
         name="product_detail"
         placeholder="Product detail"
         value={form.product_detail}
@@ -52,7 +52,7 @@ export default function RentForm({ onSubmit }) {
         required
       />
       <input
-        className="w-full rounded-xl border border-slate-200 px-4 py-2"
+        className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime/70"
         name="rent_duration_days"
         placeholder="Rent time (days)"
         value={form.rent_duration_days}
@@ -61,7 +61,7 @@ export default function RentForm({ onSubmit }) {
         min="1"
         required
       />
-      <button className="w-full rounded-xl bg-ink px-4 py-2 text-white hover:bg-teal transition-colors">
+      <button className="w-full rounded-xl bg-teal px-4 py-2 text-white shadow-glow hover:opacity-90 transition">
         Add Rent
       </button>
     </form>

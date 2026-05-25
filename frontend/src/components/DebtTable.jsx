@@ -1,6 +1,6 @@
 export default function DebtTable({ debts, onClear }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-200">
+    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white/70">
       <table className="w-full text-sm">
         <thead className="bg-sand text-left">
           <tr>
