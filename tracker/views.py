@@ -1,4 +1,3 @@
-import logging
 import random
 
 from django.conf import settings
@@ -26,7 +25,6 @@ from .serializers import (
 )
 
 User = get_user_model()
-logger = logging.getLogger(__name__)
 
 
 def _generate_otp():
@@ -145,19 +143,12 @@ class GoogleLoginView(APIView):
             )
         except ValueError:
             return Response({"detail": "Invalid Google token."}, status=status.HTTP_400_BAD_REQUEST)
-        except Exception:
-            logger.exception("Google token verification failed")
-            return Response({"detail": "Google login failed."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         email = id_info.get("email", "").lower()
         if not email:
             return Response({"detail": "Email not available from Google."}, status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            user, _ = User.objects.get_or_create(email=email, defaults={"is_active": True})
-        except Exception:
-            logger.exception("Google login user lookup/create failed")
-            return Response({"detail": "Google login failed."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        user, _ = User.objects.get_or_create(email=email, defaults={"is_active": True})
         if not user.is_active:
             user.is_active = True
             user.save(update_fields=["is_active"])

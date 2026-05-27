@@ -59,6 +59,7 @@ Optional email vars (OTP email only):
 - **500 on auth or signup**: Backend DB env vars still point to `localhost`. Fix env vars to Render Postgres.
 - **404 on auth**: Missing `/api` in `VITE_API_BASE_URL`.
 - **Empty dashboard data**: New Render Postgres is empty; import data if needed.
+- **Missing tables / relation does not exist**: Tracker migrations were not committed. Ensure `.gitignore` allows `tracker/migrations/*.py`, run `python manage.py makemigrations tracker`, commit, push, and redeploy.
 
 ## Verify After Deploy
 
