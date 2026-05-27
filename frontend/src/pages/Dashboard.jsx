@@ -149,6 +149,7 @@ export default function Dashboard() {
             ) : (
               rentItems.map((item) => {
                 const remaining = new Date(item.end_date).getTime() - Date.now();
+                const endDate = formatDate(item.end_date);
                 return (
                   <div key={item.id} className="rounded-2xl border border-slate-200 p-4">
                     <div className="flex items-center justify-between">
@@ -156,9 +157,12 @@ export default function Dashboard() {
                         <p className="font-semibold text-ink">{item.name}</p>
                         <p className="text-xs text-slate-500">{item.product_detail}</p>
                       </div>
-                      <span className="rounded-full bg-lilac/30 px-3 py-1 text-xs text-ink">
-                        {formatCountdown(remaining)}
-                      </span>
+                      <div className="text-right">
+                        <span className="rounded-full bg-lilac/30 px-3 py-1 text-xs text-ink">
+                          {formatCountdown(remaining)}
+                        </span>
+                        <p className="mt-2 text-xs text-slate-500">Ends {endDate}</p>
+                      </div>
                     </div>
                     <p className="mt-2 text-xs text-slate-500">{item.number}</p>
                   </div>
