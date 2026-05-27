@@ -7,6 +7,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   useEffect(() => {
     clearToken();
@@ -27,9 +28,11 @@ export default function Login() {
       client_id: clientId,
       callback: async (response) => {
         try {
+          setGoogleLoading(true);
           await googleLogin({ id_token: response.credential });
           navigate("/dashboard");
         } catch (err) {
+          setGoogleLoading(false);
           setError(err.response?.data?.detail || "Google login failed.");
         }
       },
@@ -106,6 +109,9 @@ export default function Login() {
         <div className="mt-6">
           <p className="text-xs uppercase tracking-widest text-slate-400">Google Sign-In</p>
           <div id="googleSignIn" className="mt-3 flex justify-center" />
+          {googleLoading && (
+            <p className="mt-3 text-center text-sm text-slate-500">Signing in with Google...</p>
+          )}
         </div>
 
         <p className="mt-6 text-center text-sm text-slate-500">
