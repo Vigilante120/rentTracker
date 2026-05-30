@@ -25,6 +25,8 @@ from .serializers import (
 )
 
 User = get_user_model()
+_google_session = requests.requests.Session()
+_google_request = requests.Request(_google_session)
 
 
 def _generate_otp():
@@ -138,7 +140,7 @@ class GoogleLoginView(APIView):
         try:
             id_info = id_token.verify_oauth2_token(
                 token_value,
-                requests.Request(),
+                _google_request,
                 settings.GOOGLE_OAUTH_CLIENT_ID,
             )
         except ValueError:

@@ -7,7 +7,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [googleLoading, setGoogleLoading] = useState(false);
+  const [authLoading, setAuthLoading] = useState(false);
 
   useEffect(() => {
     clearToken();
@@ -28,11 +28,11 @@ export default function Login() {
       client_id: clientId,
       callback: async (response) => {
         try {
-          setGoogleLoading(true);
+          setAuthLoading(true);
           await googleLogin({ id_token: response.credential });
           navigate("/dashboard");
         } catch (err) {
-          setGoogleLoading(false);
+          setAuthLoading(false);
           setError(err.response?.data?.detail || "Google login failed.");
         }
       },
@@ -54,9 +54,11 @@ export default function Login() {
     event.preventDefault();
     setError("");
     try {
+      setAuthLoading(true);
       await login(form);
       navigate("/dashboard");
     } catch (err) {
+      setAuthLoading(false);
       setError(err.response?.data?.detail || "Login failed.");
     }
   };
@@ -76,7 +78,7 @@ export default function Login() {
         </Link>
       </header>
       <div className="flex items-center justify-center">
-      <div className="glass w-full max-w-md rounded-3xl p-8 shadow-card neo-border">
+      <div className="glass relative w-full max-w-md rounded-3xl p-8 shadow-card neo-border">
         <h1 className="font-display text-3xl">Welcome back</h1>
         <p className="mt-2 text-sm text-slate-500">Pick up right where your tracking left off.</p>
 
@@ -91,6 +93,7 @@ export default function Login() {
             value={form.email}
             onChange={handleChange}
             required
+            disabled={authLoading}
           />
           <input
             className="w-full rounded-xl border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lilac/70"
@@ -100,23 +103,32 @@ export default function Login() {
             value={form.password}
             onChange={handleChange}
             required
+            disabled={authLoading}
           />
-          <button className="w-full rounded-xl bg-teal px-4 py-2 text-white shadow-glow hover:opacity-90 transition">
-            Login
+          <button
+            className="w-full rounded-xl bg-teal px-4 py-2 text-white shadow-glow hover:opacity-90 transition disabled:opacity-70"
+            disabled={authLoading}
+          >
+            {authLoading ? "Signing you in..." : "Login"}
           </button>
         </form>
 
         <div className="mt-6">
           <p className="text-xs uppercase tracking-widest text-slate-400">Google Sign-In</p>
           <div id="googleSignIn" className="mt-3 flex justify-center" />
-          {googleLoading && (
-            <p className="mt-3 text-center text-sm text-slate-500">Signing in with Google...</p>
-          )}
         </div>
 
         <p className="mt-6 text-center text-sm text-slate-500">
           New here? <Link to="/signup" className="text-teal">Create an account</Link>
         </p>
+        {authLoading && (
+          <div className="absolute inset-0 flex items-center justify-center rounded-3xl bg-white/80 backdrop-blur-sm">
+            <div className="text-center">
+              <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-teal border-t-transparent" />
+              <p className="mt-3 text-sm text-slate-600">Signing you in...</p>
+            </div>
+          </div>
+        )}
       </div>
       </div>
     </div>

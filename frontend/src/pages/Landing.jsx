@@ -97,7 +97,6 @@ export default function Landing() {
       <section className="mt-16">
         <div className="flex items-center justify-between">
           <h2 className="font-display text-3xl">Loved by detail-obsessed renters</h2>
-          <span className="text-sm text-slate-500">Hardcoded 5-star love</span>
         </div>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {reviews.map((review) => (
