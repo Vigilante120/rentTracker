@@ -36,6 +36,14 @@ export default function Dashboard() {
     [rentItems, tick]
   );
 
+  const sortedRentItems = useMemo(() => {
+    return [...rentItems].sort((first, second) => {
+      const firstRemaining = new Date(first.end_date).getTime() - Date.now();
+      const secondRemaining = new Date(second.end_date).getTime() - Date.now();
+      return firstRemaining - secondRemaining;
+    });
+  }, [rentItems, tick]);
+
   useEffect(() => {
     const interval = setInterval(() => setTick((prev) => prev + 1), 1000);
     return () => clearInterval(interval);
@@ -144,10 +152,10 @@ export default function Dashboard() {
             <span className="text-sm text-slate-500">{rentItems.length} active</span>
           </div>
           <div className="mt-4 space-y-4">
-            {rentItems.length === 0 ? (
+            {sortedRentItems.length === 0 ? (
               <p className="text-sm text-slate-500">No rent items yet.</p>
             ) : (
-              rentItems.map((item) => {
+              sortedRentItems.map((item) => {
                 const remaining = new Date(item.end_date).getTime() - Date.now();
                 const endDate = formatDate(item.end_date);
                 return (
